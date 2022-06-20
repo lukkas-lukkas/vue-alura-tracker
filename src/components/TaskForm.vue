@@ -7,7 +7,7 @@
             <div class="column">
                 <div class="is-flex is-align-items-center is-justify-content-space-between">
                     <section>
-                        <strong>00:00:00</strong>
+                        <strong>{{ timeInSeconds }}</strong>
                     </section>
                     <button class="button" @click="startTimer">
                         <span class="icon">
@@ -32,8 +32,16 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
     name: "TaskForm",
+    data() {
+        return {
+            timeInSeconds: 0
+        }
+    },
     methods: {
         startTimer() {
+            setInterval(() => {
+                this.timeInSeconds += 1;
+            }, 1000);
             console.log('Starting timer now');
         },
         stopTimer() {
