@@ -6,9 +6,7 @@
             </div>
             <div class="column">
                 <div class="is-flex is-align-items-center is-justify-content-space-between">
-                    <section>
-                        <strong>{{ elapsedTime }}</strong>
-                    </section>
+                    <TimerForm :timeInSeconds="timeInSeconds"/>
                     <button class="button" @click="startTimer">
                         <span class="icon">
                             <i class="fas fa-play"></i>
@@ -29,6 +27,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import TimerForm from "./TimerForm.vue";
 
 export default defineComponent({
     name: "TaskForm",
@@ -37,27 +36,21 @@ export default defineComponent({
         return {
             timeInSeconds: 0,
             timer: 0
-        }
-    },
-    // Monitoring a info and react to changes
-    computed: {
-        elapsedTime(): string {
-            const timeInMiliseconds = this.timeInSeconds * 1000;
-            return new Date(timeInMiliseconds).toISOString().substr(11,8);
-        }
+        };
     },
     methods: {
-         startTimer() {
+        startTimer() {
             this.timer = setInterval(() => {
                 this.timeInSeconds += 1;
             }, 1000);
-            console.log('Starting timer now');
+            console.log("Starting timer now");
         },
         stopTimer() {
             clearInterval(this.timer);
             this.timeInSeconds = 0;
-            console.log('Stoping timer now');
+            console.log("Stoping timer now");
         }
-    }
+    },
+    components: { TimerForm }
 })
 </script>
