@@ -7,7 +7,7 @@
             <div class="column">
                 <div class="is-flex is-align-items-center is-justify-content-space-between">
                     <section>
-                        <strong>{{ timeInSeconds }}</strong>
+                        <strong>{{ elapsedTime }}</strong>
                     </section>
                     <button class="button" @click="startTimer">
                         <span class="icon">
@@ -32,9 +32,17 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
     name: "TaskForm",
+    //Default value to property
     data() {
         return {
             timeInSeconds: 0
+        }
+    },
+    // Monitoring a info and react to changes
+    computed: {
+        elapsedTime(): string {
+            const timeInMiliseconds = this.timeInSeconds * 1000;
+            return new Date(timeInMiliseconds).toISOString().substr(11,8);
         }
     },
     methods: {
