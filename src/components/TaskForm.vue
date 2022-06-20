@@ -35,7 +35,8 @@ export default defineComponent({
     //Default value to property
     data() {
         return {
-            timeInSeconds: 0
+            timeInSeconds: 0,
+            timer: 0
         }
     },
     // Monitoring a info and react to changes
@@ -46,13 +47,15 @@ export default defineComponent({
         }
     },
     methods: {
-        startTimer() {
-            setInterval(() => {
+         startTimer() {
+            this.timer = setInterval(() => {
                 this.timeInSeconds += 1;
             }, 1000);
             console.log('Starting timer now');
         },
         stopTimer() {
+            clearInterval(this.timer);
+            this.timeInSeconds = 0;
             console.log('Stoping timer now');
         }
     }
