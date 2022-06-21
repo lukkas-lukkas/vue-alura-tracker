@@ -6,7 +6,7 @@
             </div>
             <div class="column">
                 <div class="is-flex is-align-items-center is-justify-content-space-between">
-                    <TimerForm :timeInSeconds="timeInSeconds"/>
+                    <TimerDisplay :timeInSeconds="timeInSeconds"/>
                     <button class="button" @click="startTimer">
                         <span class="icon">
                             <i class="fas fa-play"></i>
@@ -27,7 +27,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import TimerForm from "./TimerForm.vue";
+import TimerDisplay from "./TimerDisplay.vue";
 
 export default defineComponent({
     name: "TaskForm",
@@ -51,6 +51,6 @@ export default defineComponent({
             console.log("Stoping timer now");
         }
     },
-    components: { TimerForm }
+    components: { TimerDisplay }
 })
 </script>
