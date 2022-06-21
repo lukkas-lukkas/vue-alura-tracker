@@ -1,4 +1,4 @@
 export default interface ITask {
-    description: String,
-    elapsedTime: Number
+    description: string,
+    elapsedTime: number
 }
