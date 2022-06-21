@@ -8,7 +8,7 @@
       <div class="taskList">
         <TaskItem v-for="(task, index) in tasks" :key="index" :task="task"/>
         <BoxTaskItem v-if="listIsEmpty">
-          Nenhuma tarefa executada hoje :(
+          No tasks done today :(
         </BoxTaskItem>
       </div>
     </div>
@@ -40,7 +40,6 @@ export default defineComponent({
     methods: {
       addTask(task: ITask) {
         this.tasks.push(task);
-        console.log('Add task', task);
       },
       changeTheme(activedDarkMode: boolean) {
         this.activedDarkMode = activedDarkMode;

@@ -25,8 +25,6 @@ export default defineComponent({
     components: { Timer },
     methods: {
         finishTask(elapsedTime: number): void {
-            console.log('Elapsed time', elapsedTime);
-            console.log('Task description', this.taskDescription);
             this.$emit('addTaskEvent',{
                 'description': this.taskDescription,
                 'elapsedTime': elapsedTime

@@ -36,14 +36,12 @@ export default defineComponent({
             this.timer = setInterval(() => {
                 this.timeInSeconds += 1;
             }, 1000);
-            console.log("Starting timer now");
         },
         stopTimer() {
             this.timerRunning = false;
             clearInterval(this.timer);
             this.$emit('finishedTimer', this.timeInSeconds);
             this.timeInSeconds = 0;
-            console.log("Stoping timer now");
         }
     },
     components: { TimerDisplay },
