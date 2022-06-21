@@ -5,7 +5,7 @@
                 <input type="text" class="input" placeholder="What task do you want start?">
             </div>
             <div class="column">
-                <Timer />
+                <Timer @finishedTimer="finishTask"/>
             </div>
         </div>
     </div>
@@ -17,6 +17,11 @@ import Timer from "./Timer.vue";
 
 export default defineComponent({
     name: "TaskForm",
-    components: { Timer }
+    components: { Timer },
+    methods: {
+        finishTask(elapsedTime: number): void {
+            console.log('Elapsed time', elapsedTime);
+        }
+    }
 })
 </script>

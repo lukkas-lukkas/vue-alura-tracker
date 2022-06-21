@@ -41,10 +41,12 @@ export default defineComponent({
         stopTimer() {
             this.timerRunning = false;
             clearInterval(this.timer);
+            this.$emit('finishedTimer', this.timeInSeconds);
             this.timeInSeconds = 0;
             console.log("Stoping timer now");
         }
     },
-    components: { TimerDisplay }
+    components: { TimerDisplay },
+    emits: ['finishedTimer']
 })
 </script>
