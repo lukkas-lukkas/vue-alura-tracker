@@ -6,10 +6,7 @@
     <div class="column is-three-quarter">
       <TaskForm @addTaskEvent="addTask" />
       <div class="taskList">
-        <TaskItem />
-        <TaskItem />
-        <TaskItem />
-        <TaskItem />
+        <TaskItem v-for="(task, index) in tasks" :key="index" :task="task"/>
       </div>
     </div>
   </main>
