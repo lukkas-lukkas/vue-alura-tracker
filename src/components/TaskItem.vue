@@ -2,7 +2,7 @@
     <div class="box has-text-weight-bold">
         <div class="columns">
             <div class="column is-7">
-                {{ task.description }}
+                {{ task.description || 'Task withou description' }}
             </div>
             <div class="column">
                 <TimerDisplay :timeInSeconds="task.elapsedTime"/>
