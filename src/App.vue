@@ -3,7 +3,7 @@
     <div class="column is-one-quarter">
       <SideBar />
     </div>
-    <div class="column is-three-quarter">
+    <div class="column is-three-quarter content">
       <TaskForm @addTaskEvent="addTask" />
       <div class="taskList">
         <TaskItem v-for="(task, index) in tasks" :key="index" :task="task"/>
@@ -45,8 +45,22 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
+<style>
 .taskList {
   padding: 1.25rem;
+}
+
+main {
+  --bg-primary: #fff;
+  --text-primary: #000;
+}
+
+main.dark-mode {
+  --bg-primary: #2b2d42;
+  --text-primary: #ddd;
+}
+
+.content {
+  background-color: var(--bg-primary);
 }
 </style>

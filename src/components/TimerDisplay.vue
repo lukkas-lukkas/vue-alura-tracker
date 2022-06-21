@@ -1,6 +1,6 @@
 <template>
     <section>
-        <strong>{{ elapsedTime }}</strong>
+        <strong class="timerDisplay">{{ elapsedTime }}</strong>
     </section>
 </template>
 
@@ -24,3 +24,10 @@ export default defineComponent({
     }
 })
 </script>
+
+<style scoped>
+.timerDisplay {
+    color: var(--text-primary);
+    background-color: var(--bg-primary);
+}
+</style>
