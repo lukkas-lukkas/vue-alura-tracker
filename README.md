@@ -1,4 +1,4 @@
-# alura-tracker
+# vue-alura-tracker
 
 ## Project setup
 ```
@@ -20,5 +20,6 @@ npm run build
 npm run lint
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### Links
+- See [Configuration Reference](https://cli.vuejs.org/config/).
+- Extension to debug on Chrome: [Vue.js devtools](https://chrome.google.com/webstore/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd?hl=pt-BR)
