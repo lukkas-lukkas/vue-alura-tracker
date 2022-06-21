@@ -27,8 +27,13 @@ export default defineComponent({
         finishTask(elapsedTime: number): void {
             console.log('Elapsed time', elapsedTime);
             console.log('Task description', this.taskDescription);
+            this.$emit('addTaskEvent',{
+                'description': this.taskDescription,
+                'elapsedTime': elapsedTime
+            });
             this.taskDescription = '';
         }
-    }
+    },
+    emits: ['addTaskEvent']
 })
 </script>

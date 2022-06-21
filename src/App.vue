@@ -4,7 +4,7 @@
       <SideBar />
     </div>
     <div class="column is-three-quarter">
-      <TaskForm />
+      <TaskForm @addTaskEvent="addTask" />
       <div class="taskList">
         <TaskItem />
         <TaskItem />
@@ -28,6 +28,12 @@ export default defineComponent({
     data() {
       return {
         tasks: [] as ITask[]
+      }
+    },
+    methods: {
+      addTask(task: ITask) {
+        this.tasks.push(task);
+        console.log('Add task', task);
       }
     }
 });
