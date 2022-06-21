@@ -20,10 +20,16 @@ import { defineComponent } from 'vue';
 import SideBar from './components/SideBar.vue';
 import TaskForm from './components/TaskForm.vue';
 import TaskItem from './components/TaskItem.vue';
+import ITask from './interfaces/ITask';
 
 export default defineComponent({
     name: "App",
-    components: { SideBar, TaskForm, TaskItem }
+    components: { SideBar, TaskForm, TaskItem },
+    data() {
+      return {
+        tasks: [] as ITask[]
+      }
+    }
 });
 </script>
 
