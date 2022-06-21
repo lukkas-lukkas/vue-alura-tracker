@@ -3,6 +3,9 @@
         <h1>
             <img src="../assets/logo.png" alt="Logo alura tracker">
         </h1>
+        <button class="button" @click="changeTheme">
+            {{ textButtonTheme }}
+        </button>
     </header>
 </template>
 
@@ -10,7 +13,28 @@
 import { defineComponent } from "vue";
 
 export default defineComponent({
-    name: "SideBar"
+    name: 'SideBar',
+    data() {
+        return {
+            activedDarkMode: false
+        }
+    },
+    computed: {
+        textButtonTheme() {
+            if (this.activedDarkMode) {
+                return 'Disable dark mode';
+            }
+
+            return 'Active dark mode';
+        }
+    },
+    methods: {
+        changeTheme() {
+            this.activedDarkMode = !this.activedDarkMode;
+            this.$emit('changedThemeEvent', this.activedDarkMode);
+        }
+    },
+    emits: ['changedThemeEvent']
 })
 </script>
 
@@ -20,6 +44,7 @@ header {
     background: #0d3b66;
     width: 100%;
     height: 100vh;
+    text-align: center;
 }
 
 @media only screen and (max-width: 768px) {
