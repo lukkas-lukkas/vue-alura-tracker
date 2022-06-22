@@ -25,8 +25,7 @@
 
 <script lang="ts">
 import { key } from "@/store";
-import { computed } from "@vue/reactivity";
-import { defineComponent } from "vue";
+import { defineComponent, computed } from "vue";
 import { useStore } from "vuex";
 import Timer from "./Timer.vue";
 
