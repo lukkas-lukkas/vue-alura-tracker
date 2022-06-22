@@ -32,9 +32,8 @@
 </template>
 
 <script lang="ts">
-import { key } from "@/store";
 import { computed, defineComponent } from "vue";
-import { useStore } from "vuex";
+import { useStore } from "@/store";
 
 export default defineComponent({
     name: 'Projects',
@@ -50,7 +49,7 @@ export default defineComponent({
         }
     },
     setup() {
-        const store = useStore(key);
+        const store = useStore();
 
         return { 
             store,

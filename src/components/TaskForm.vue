@@ -24,9 +24,8 @@
 </template>
 
 <script lang="ts">
-import { key } from "@/store";
 import { defineComponent, computed } from "vue";
-import { useStore } from "vuex";
+import { useStore } from "@/store";
 import Timer from "./Timer.vue";
 
 export default defineComponent({
@@ -50,7 +49,7 @@ export default defineComponent({
     },
     emits: ['addTaskEvent'],
     setup() {
-        const store = useStore(key);
+        const store = useStore();
 
         return {
             projects: computed(() => store.state.projects)
