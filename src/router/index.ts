@@ -30,6 +30,12 @@ const routes: RouteRecordRaw[] = [
                 component: ProjectForm,
                 props: true
             },
+            {
+                path: 'delete/:id',
+                name: 'DeleteProject',
+                component: ProjectForm,
+                props: true
+            },
         ]
     }
 ];

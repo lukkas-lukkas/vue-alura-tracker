@@ -24,6 +24,11 @@
                                 <i class="fas fa-pencil-alt"></i>
                             </span>
                         </router-link>
+                        <button class="button ml-2 is-danger" @click="deleteProject(project.id)">
+                            <span class="icon is-small  ">
+                                <i class="fas fa-trash"></i>
+                            </span>
+                        </button>
                     </td>
                 </tr>
             </tbody>
@@ -41,8 +46,14 @@ export default defineComponent({
         const store = useStore();
 
         return {
+            store,
             projects: computed(() => store.state.projects)
          }
+    },
+    methods: {
+        deleteProject(id: string) {
+            this.store.commit('DELETE_PROJECT', id);
+        }
     }
 })
 </script>
