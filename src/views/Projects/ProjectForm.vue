@@ -20,6 +20,7 @@
 import { defineComponent } from "vue";
 import { useStore } from "@/store";
 import IProject from "@/interfaces/IProject";
+import { ADD_PROJECT, EDIT_PROJECT } from "@/store/constants";
 
 export default defineComponent({
     name: 'ProjectForm',
@@ -42,12 +43,12 @@ export default defineComponent({
     methods: {
         save() {
             if (this.id) {
-                this.store.commit('EDIT_PROJECT', {
+                this.store.commit(EDIT_PROJECT, {
                     id: this.id,
                     name: this.projectName
                 } as IProject);
             } else {
-                this.store.commit('ADD_PROJECT', this.projectName);
+                this.store.commit(ADD_PROJECT, this.projectName);
             }
 
             this.projectName = '';

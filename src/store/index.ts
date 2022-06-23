@@ -1,6 +1,7 @@
 import IProject from "@/interfaces/IProject";
 import { InjectionKey } from "vue";
 import { createStore, Store, useStore as vuexUseStore } from "vuex";
+import { ADD_PROJECT, EDIT_PROJECT, DELETE_PROJECT } from "./constants";
 
 interface State {
     projects: IProject[]
@@ -13,7 +14,7 @@ export const store = createStore<State>({
         projects: []
     },
     mutations: {
-        'ADD_PROJECT'(state, nameProject: string) {
+        [ADD_PROJECT](state, nameProject: string) {
             const project = {
                 id: new Date().toISOString(),
                 name: nameProject
@@ -21,11 +22,11 @@ export const store = createStore<State>({
 
             state.projects.push(project);
         },
-        'EDIT_PROJECT'(state, project: IProject) {
+        [EDIT_PROJECT](state, project: IProject) {
             const index = state.projects.findIndex(p => p.id == project.id);
             state.projects[index] = project;
         },
-        'DELETE_PROJECT'(state, id: string) {
+        [DELETE_PROJECT](state, id: string) {
             state.projects = state.projects.filter(p => p.id != id);
         }
     }

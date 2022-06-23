@@ -39,6 +39,7 @@
 <script lang="ts">
 import { computed, defineComponent } from "vue";
 import { useStore } from "@/store";
+import { DELETE_PROJECT } from "@/store/constants";
 
 export default defineComponent({
     name: 'ProjectList',
@@ -52,7 +53,7 @@ export default defineComponent({
     },
     methods: {
         deleteProject(id: string) {
-            this.store.commit('DELETE_PROJECT', id);
+            this.store.commit(DELETE_PROJECT, id);
         }
     }
 })
