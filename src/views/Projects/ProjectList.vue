@@ -1,6 +1,5 @@
 <template>
-    <section class="projects">
-        <h1 class="title">Projetos</h1>
+    <section>
         <router-link to="/projects/create" class="button">
             <span class="icon is-small">
                 <i class="fas fa-plus"></i>
@@ -47,9 +46,3 @@ export default defineComponent({
     }
 })
 </script>
-
-<style scoped>
-.projects {
-    padding: 1.25rem;
-}
-</style>
