@@ -14,29 +14,15 @@
                 </button>
             </div>
         </form>
-        <table class="table is-fullwidth">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>NAME</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="project in projects" :key="project.id">
-                    <td>{{ project.id }}</td>
-                    <td>{{ project.name }}</td>
-                </tr>
-            </tbody>
-        </table>
     </section>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from "vue";
+import { defineComponent } from "vue";
 import { useStore } from "@/store";
 
 export default defineComponent({
-    name: 'Projects',
+    name: 'ProjectForm',
     data() {
         return {
             projectName: ''
@@ -52,8 +38,7 @@ export default defineComponent({
         const store = useStore();
 
         return { 
-            store,
-            projects: computed(() => store.state.projects)
+            store
          }
     }
 })
