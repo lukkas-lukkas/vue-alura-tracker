@@ -1,6 +1,12 @@
 <template>
     <section class="projects">
         <h1 class="title">Projetos</h1>
+        <router-link to="/projects/create" class="button">
+            <span class="icon is-small">
+                <i class="fas fa-plus"></i>
+            </span>
+            <span>New project</span>
+        </router-link>
         <table class="table is-fullwidth">
             <thead>
                 <tr>

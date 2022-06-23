@@ -32,6 +32,7 @@ export default defineComponent({
         save() {
             this.store.commit('ADD_PROJECT', this.projectName);
             this.projectName = '';
+            this.$router.push('/projects');
         }
     },
     setup() {
