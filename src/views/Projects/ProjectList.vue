@@ -12,12 +12,20 @@
                 <tr>
                     <th>ID</th>
                     <th>NAME</th>
+                    <th>ACTIONS</th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="project in projects" :key="project.id">
                     <td>{{ project.id }}</td>
                     <td>{{ project.name }}</td>
+                    <td>
+                        <router-link :to="`/projects/${project.id}`" class="button">
+                            <span class="icon is-small">
+                                <i class="fas fa-pencil-alt"></i>
+                            </span>
+                        </router-link>
+                    </td>
                 </tr>
             </tbody>
         </table>

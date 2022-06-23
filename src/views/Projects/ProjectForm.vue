@@ -20,9 +20,21 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { useStore } from "@/store";
+import IProject from "@/interfaces/IProject";
 
 export default defineComponent({
     name: 'ProjectForm',
+    props: {
+        id: {
+            type: String
+        }
+    },
+    mounted() {
+        if (this.id) {
+            const project = this.store.state.projects.find(project => project.id == this.id);
+            this.projectName = project?.name || '';
+        }
+    },
     data() {
         return {
             projectName: ''
@@ -30,7 +42,15 @@ export default defineComponent({
     },
     methods: {
         save() {
-            this.store.commit('ADD_PROJECT', this.projectName);
+            if (this.id) {
+                this.store.commit('EDIT_PROJECT', {
+                    id: this.id,
+                    name: this.projectName
+                } as IProject);
+            } else {
+                this.store.commit('ADD_PROJECT', this.projectName);
+            }
+
             this.projectName = '';
             this.$router.push('/projects');
         }
