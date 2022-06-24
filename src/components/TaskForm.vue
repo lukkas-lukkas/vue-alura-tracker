@@ -43,7 +43,6 @@ export default defineComponent({
         finishTask(elapsedTime: number): void {
             if (this.projectId === '' || this.taskDescription === '' ) {
                 this.store.commit(NOTIFY, {
-                    id: new Date().getTime(),
                     title: 'Missing values',
                     text: 'There is missing value to finish task',
                     type: NotificationType.DANGER

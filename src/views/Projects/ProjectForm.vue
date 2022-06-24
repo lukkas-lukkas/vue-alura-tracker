@@ -52,7 +52,6 @@ export default defineComponent({
                 this.store.commit(ADD_PROJECT, this.projectName);
 
                 this.store.commit(NOTIFY, {
-                    id: new Date().getTime(),
                     title: 'Saved',
                     text: 'Right! New project saved with success',
                     type: NotificationType.SUCCESS

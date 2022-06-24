@@ -1,6 +1,6 @@
 import { INotification } from "@/interfaces/INotification";
 import IProject from "@/interfaces/IProject";
-import { InjectionKey } from "vue";
+import { getTransitionRawChildren, InjectionKey } from "vue";
 import { createStore, Store, useStore as vuexUseStore } from "vuex";
 import { ADD_PROJECT, EDIT_PROJECT, DELETE_PROJECT, NOTIFY } from "./constants";
 
@@ -33,6 +33,8 @@ export const store = createStore<State>({
             state.projects = state.projects.filter(p => p.id != id);
         },
         [NOTIFY](state, notification: INotification) {
+            notification.id = new Date().getTime();
+            
             state.notifications.push(notification);
 
             setInterval(() => {
