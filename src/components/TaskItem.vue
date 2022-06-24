@@ -1,8 +1,11 @@
 <template>
     <BoxTaskItem>
         <div class="columns">
-            <div class="column is-7">
-                {{ task.description || 'Task withou description' }}
+            <div class="column is-4">
+                {{ task.description || 'Task without description' }}
+            </div>
+            <div class="column is-3">
+                {{ task.project?.name || 'Task without project' }}
             </div>
             <div class="column">
                 <TimerDisplay :timeInSeconds="task.elapsedTime"/>

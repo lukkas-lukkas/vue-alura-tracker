@@ -4,13 +4,8 @@
       <SideBar @changedThemeEvent="changeTheme"/>
     </div>
     <div class="column is-three-quarter content">
-      <TaskForm @addTaskEvent="addTask" />
-      <div class="taskList">
-        <TaskItem v-for="(task, index) in tasks" :key="index" :task="task"/>
-        <BoxTaskItem v-if="listIsEmpty">
-          No tasks done today :(
-        </BoxTaskItem>
-      </div>
+      <Notification />
+      <router-view></router-view>
     </div>
   </main>
 </template>
@@ -18,29 +13,17 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import SideBar from './components/SideBar.vue';
-import TaskForm from './components/TaskForm.vue';
-import TaskItem from './components/TaskItem.vue';
-import ITask from './interfaces/ITask';
-import BoxTaskItem from './components/BoxTaskItem.vue';
+import Notification from './components/Notification.vue';
 
 export default defineComponent({
     name: "App",
-    components: { SideBar, TaskForm, TaskItem, BoxTaskItem },
+    components: { SideBar, Notification },
     data() {
       return {
-        tasks: [] as ITask[],
         activedDarkMode: false
       }
     },
-    computed: {
-      listIsEmpty(): boolean {
-        return this.tasks.length === 0;
-      }
-    },
     methods: {
-      addTask(task: ITask) {
-        this.tasks.push(task);
-      },
       changeTheme(activedDarkMode: boolean) {
         this.activedDarkMode = activedDarkMode;
       }

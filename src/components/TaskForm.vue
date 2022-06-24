@@ -1,8 +1,20 @@
 <template>
     <div class="box form">
         <div class="columns">
-            <div class="column is-8" role="form" aria-label="Form to create new task">
+            <div class="column is-5" role="form" aria-label="Form to create new task">
                 <input type="text" class="input" placeholder="What task do you want start?" v-model="taskDescription">
+            </div>
+            <div class="column is-3">
+                <div class="select">
+                    <select v-model="projectId">
+                        <option value="">
+                            Select the projetc
+                        </option>
+                        <option :value="project.id" v-for="project in projects" :key="project.id">
+                            {{ project.name }}
+                        </option>
+                    </select>
+                </div>
             </div>
             <div class="column">
                 <Timer @finishedTimer="finishTask"/>
@@ -12,14 +24,18 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, computed } from "vue";
+import { useStore } from "@/store";
 import Timer from "./Timer.vue";
+import { NotificationType } from "@/interfaces/INotification";
+import { mixinNotification } from "@/mixins/notification";
 
 export default defineComponent({
     name: "TaskForm",
     data() {
         return {
-            taskDescription: ''
+            taskDescription: '',
+            projectId: ''
         }
     },
     components: { Timer },
@@ -27,12 +43,22 @@ export default defineComponent({
         finishTask(elapsedTime: number): void {
             this.$emit('addTaskEvent',{
                 'description': this.taskDescription,
-                'elapsedTime': elapsedTime
+                'elapsedTime': elapsedTime,
+                'project': this.projects.find(project => project.id == this.projectId)
             });
             this.taskDescription = '';
         }
     },
-    emits: ['addTaskEvent']
+    emits: ['addTaskEvent'],
+    setup() {
+        const store = useStore();
+
+        return {
+            store,
+            projects: computed(() => store.state.projects)
+        }
+    },
+    mixins: [mixinNotification]
 })
 </script>
 
