@@ -1,43 +1,39 @@
 <template>
     <div class="notifications">
-        <article class="message is-success">
+        <article class="message is-success" :class="context[notification.type]" v-for="notification in notifications" :key="notification.id">
             <div class="message-header">
-                <p>Success</p>
-                <button class="delete" aria-label="delete"></button>
+                <p>{{notification.title}}</p>
             </div>
             <div class="message-body">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. <strong>Pellentesque risus mi</strong>, tempus
-                quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla.
-            </div>
-        </article>
-        <article class="message is-warning">
-            <div class="message-header">
-                <p>Warning</p>
-                <button class="delete" aria-label="delete"></button>
-            </div>
-            <div class="message-body">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. <strong>Pellentesque risus mi</strong>, tempus
-                quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla.
-            </div>
-        </article>
-        <article class="message is-danger">
-            <div class="message-header">
-                <p>Danger</p>
-                <button class="delete" aria-label="delete"></button>
-            </div>
-            <div class="message-body">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. <strong>Pellentesque risus mi</strong>, tempus
-                quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla.
+                {{ notification.text }}
             </div>
         </article>
     </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { NotificationType } from "@/interfaces/INotification";
+import { useStore } from "@/store";
+import { computed, defineComponent } from "vue";
 
 export default defineComponent({
-    name: 'Notification'
+    name: 'Notification',
+    data() {
+        return {
+            context: {
+                [NotificationType.SUCCESS]: 'is-success',
+                [NotificationType.WARNING]: 'is-warning',
+                [NotificationType.DANGER]: 'is-danger',
+            }
+        }
+    },
+    setup() {
+        const store = useStore();
+
+        return {
+            notifications: computed(() => store.state.notifications)
+        }
+    }
 })
 </script>
 
@@ -45,7 +41,7 @@ export default defineComponent({
 .notifications {
     position: absolute;
     right: 0;
-    max-width: 400px;
+    width: 350px;
     padding: 8px;
     z-index: 1;
 }

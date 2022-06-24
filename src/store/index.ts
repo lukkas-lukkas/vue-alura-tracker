@@ -1,17 +1,39 @@
+import { INotification, NotificationType } from "@/interfaces/INotification";
 import IProject from "@/interfaces/IProject";
 import { InjectionKey } from "vue";
 import { createStore, Store, useStore as vuexUseStore } from "vuex";
 import { ADD_PROJECT, EDIT_PROJECT, DELETE_PROJECT } from "./constants";
 
 interface State {
-    projects: IProject[]
+    projects: IProject[],
+    notifications: INotification[]
 }
 
 export const key: InjectionKey<Store<State>> = Symbol();
 
 export const store = createStore<State>({
     state: {
-        projects: []
+        projects: [],
+        notifications: [
+            {
+                id: 1,
+                title: 'Success',
+                text: 'Notification content',
+                type: NotificationType.SUCCESS
+            },
+            {
+                id: 2,
+                title: 'Warning',
+                text: 'Notification content',
+                type: NotificationType.WARNING
+            },
+            {
+                id: 1,
+                title: 'Danger',
+                text: 'Notification content',
+                type: NotificationType.DANGER
+            }
+        ]
     },
     mutations: {
         [ADD_PROJECT](state, nameProject: string) {
