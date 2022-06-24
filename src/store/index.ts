@@ -60,6 +60,10 @@ export const store = createStore<State>({
             return clientHttp.put(`/projects/${project.id}`, {
                 name: project.name
             });
+        },
+        [DELETE_PROJECT]({ commit }, id: string) {
+            return clientHttp.delete(`/projects/${id}`)
+                .then(() => commit(DELETE_PROJECT, id));
         }
     }
 });

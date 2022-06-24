@@ -55,7 +55,7 @@ export default defineComponent({
     },
     methods: {
         deleteProject(id: string) {
-            this.store.commit(DELETE_PROJECT, id);
+            this.store.dispatch(DELETE_PROJECT, id);
         }
     }
 })
