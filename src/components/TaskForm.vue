@@ -41,15 +41,6 @@ export default defineComponent({
     components: { Timer },
     methods: {
         finishTask(elapsedTime: number): void {
-            if (this.projectId === '' || this.taskDescription === '' ) {
-                this.notify(
-                    'Missing values',
-                    'There is missing value to finish task',
-                    NotificationType.DANGER
-                );
-                return;
-            }
-
             this.$emit('addTaskEvent',{
                 'description': this.taskDescription,
                 'elapsedTime': elapsedTime,
