@@ -6,6 +6,9 @@ Application developed with Vue.js following the framework course at Alura.
 ```
 npm install
 ```
+```
+npm install -g json-server
+```
 
 ### Compiles and hot-reloads for development
 ```
@@ -22,6 +25,24 @@ npm run build
 npm run lint
 ```
 
+## Usage
+
+### Run application
+```
+npm run serve
+```
+
+### Run json-server
+```
+json-server --watch db.json
+```
+
+### Open application
+```
+http://localhost:8080
+```
+
 ### Links
-- See [Configuration Reference](https://cli.vuejs.org/config/).
-- Extension to debug on Chrome: [Vue.js devtools](https://chrome.google.com/webstore/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd?hl=pt-BR)
+- [Configuration Reference](https://cli.vuejs.org/config/).
+- [Extension to debug on Chrome: Vue.js devtools](https://chrome.google.com/webstore/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd?hl=pt-BR)
+- [Json server documentation](https://github.com/typicode/json-server)
