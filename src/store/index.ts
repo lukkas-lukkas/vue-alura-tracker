@@ -1,6 +1,6 @@
 import { INotification } from "@/interfaces/INotification";
 import IProject from "@/interfaces/IProject";
-import { getTransitionRawChildren, InjectionKey } from "vue";
+import { InjectionKey } from "vue";
 import { createStore, Store, useStore as vuexUseStore } from "vuex";
 import { ADD_PROJECT, EDIT_PROJECT, DELETE_PROJECT, NOTIFY } from "./constants";
 
