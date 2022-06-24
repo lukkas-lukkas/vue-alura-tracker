@@ -39,8 +39,7 @@
 <script lang="ts">
 import { computed, defineComponent } from "vue";
 import { useStore } from "@/store";
-import { DELETE_PROJECT } from "@/store/constants";
-import { GET_PROJECTS } from "@/store/actions";
+import { DELETE_PROJECT, GET_PROJECTS } from "@/store/constants";
 
 export default defineComponent({
     name: 'ProjectList',

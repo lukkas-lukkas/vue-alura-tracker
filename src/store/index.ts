@@ -3,8 +3,7 @@ import { INotification } from "@/interfaces/INotification";
 import IProject from "@/interfaces/IProject";
 import { InjectionKey } from "vue";
 import { createStore, Store, useStore as vuexUseStore } from "vuex";
-import { GET_PROJECTS } from "./actions";
-import { ADD_PROJECT, EDIT_PROJECT, DELETE_PROJECT, SET_PROJECTS, NOTIFY } from "./constants";
+import { ADD_PROJECT, EDIT_PROJECT, DELETE_PROJECT, SET_PROJECTS, GET_PROJECTS, NOTIFY } from "./constants";
 
 interface State {
     projects: IProject[],
