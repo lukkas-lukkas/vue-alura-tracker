@@ -1,7 +1,9 @@
+import clientHttp from "@/http";
 import { INotification } from "@/interfaces/INotification";
 import IProject from "@/interfaces/IProject";
 import { InjectionKey } from "vue";
 import { createStore, Store, useStore as vuexUseStore } from "vuex";
+import { GET_PROJECTS } from "./actions";
 import { ADD_PROJECT, EDIT_PROJECT, DELETE_PROJECT, NOTIFY } from "./constants";
 
 interface State {
@@ -40,6 +42,11 @@ export const store = createStore<State>({
             setInterval(() => {
                 state.notifications = state.notifications.filter(n => n.id != notification.id);
             }, 3000)
+        }
+    },
+    actions: {
+        [GET_PROJECTS]({ commit }) {
+            clientHttp.get('projects').then(response => console.log('RESPONSE_HTTP', response.data));
         }
     }
 });

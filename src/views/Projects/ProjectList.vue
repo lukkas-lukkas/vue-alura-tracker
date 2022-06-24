@@ -40,11 +40,14 @@
 import { computed, defineComponent } from "vue";
 import { useStore } from "@/store";
 import { DELETE_PROJECT } from "@/store/constants";
+import { GET_PROJECTS } from "@/store/actions";
 
 export default defineComponent({
     name: 'ProjectList',
     setup() {
         const store = useStore();
+
+        store.dispatch(GET_PROJECTS);
 
         return {
             store,
