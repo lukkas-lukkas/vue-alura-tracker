@@ -22,7 +22,7 @@ import { useStore } from "@/store";
 import IProject from "@/interfaces/IProject";
 import { ADD_PROJECT, EDIT_PROJECT } from "@/store/constants";
 import { NotificationType } from "@/interfaces/INotification";
-import { mixinNotification } from "@/mixins/notification";
+import useNotifier from "@/hooks/notifier";
 
 export default defineComponent({
     name: 'ProjectForm',
@@ -52,7 +52,7 @@ export default defineComponent({
             } else {
                 this.store.commit(ADD_PROJECT, this.projectName);
 
-                this.notify(
+                this.notifier.notify(
                     'Saved',
                     'Right! New project saved with success',
                     NotificationType.SUCCESS
@@ -64,12 +64,13 @@ export default defineComponent({
         }
     },
     setup() {
+        const notifier = useNotifier();
         const store = useStore();
 
         return { 
-            store
+            store,
+            notifier
          }
-    },
-    mixins: [mixinNotification]
+    }
 })
 </script>

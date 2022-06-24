@@ -1,3 +1,5 @@
+// Changed to hook
+
 import { NotificationType } from "@/interfaces/INotification";
 import { store } from "@/store";
 import { NOTIFY } from "@/store/constants";
