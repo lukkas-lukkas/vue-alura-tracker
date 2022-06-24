@@ -20,7 +20,8 @@
 import { defineComponent } from "vue";
 import { useStore } from "@/store";
 import IProject from "@/interfaces/IProject";
-import { ADD_PROJECT, EDIT_PROJECT } from "@/store/constants";
+import { ADD_PROJECT, EDIT_PROJECT, NOTIFY } from "@/store/constants";
+import { NotificationType } from "@/interfaces/INotification";
 
 export default defineComponent({
     name: 'ProjectForm',
@@ -49,6 +50,13 @@ export default defineComponent({
                 } as IProject);
             } else {
                 this.store.commit(ADD_PROJECT, this.projectName);
+
+                this.store.commit(NOTIFY, {
+                    id: new Date().getTime(),
+                    title: 'Saved',
+                    text: 'Right! New project saved with success',
+                    type: NotificationType.SUCCESS
+                });
             }
 
             this.projectName = '';
