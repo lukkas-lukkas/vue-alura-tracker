@@ -4,7 +4,7 @@ import IProject from "@/interfaces/IProject";
 import { InjectionKey } from "vue";
 import { createStore, Store, useStore as vuexUseStore } from "vuex";
 import { GET_PROJECTS } from "./actions";
-import { ADD_PROJECT, EDIT_PROJECT, DELETE_PROJECT, NOTIFY } from "./constants";
+import { ADD_PROJECT, EDIT_PROJECT, DELETE_PROJECT, SET_PROJECTS, NOTIFY } from "./constants";
 
 interface State {
     projects: IProject[],
@@ -34,6 +34,9 @@ export const store = createStore<State>({
         [DELETE_PROJECT](state, id: string) {
             state.projects = state.projects.filter(p => p.id != id);
         },
+        [SET_PROJECTS](state, projects: IProject[]) {
+            state.projects = projects;
+        },
         [NOTIFY](state, notification: INotification) {
             notification.id = new Date().getTime();
             
@@ -46,7 +49,8 @@ export const store = createStore<State>({
     },
     actions: {
         [GET_PROJECTS]({ commit }) {
-            clientHttp.get('projects').then(response => console.log('RESPONSE_HTTP', response.data));
+            clientHttp.get('projects')
+                .then(response => commit(SET_PROJECTS, response.data));
         }
     }
 });
