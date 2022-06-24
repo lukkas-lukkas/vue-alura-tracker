@@ -55,6 +55,11 @@ export const store = createStore<State>({
             return clientHttp.post('/projects', {
                 name: nameProject 
             });
+        },
+        [EDIT_PROJECT](state, project: IProject) {
+            return clientHttp.put(`/projects/${project.id}`, {
+                name: project.name
+            });
         }
     }
 });

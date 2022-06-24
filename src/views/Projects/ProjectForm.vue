@@ -45,10 +45,19 @@ export default defineComponent({
     methods: {
         save() {
             if (this.id) {
-                this.store.commit(EDIT_PROJECT, {
+                this.store.dispatch(EDIT_PROJECT, {
                     id: this.id,
                     name: this.projectName
-                } as IProject);
+                } as IProject).then(() => {
+                    this.notifier.notify(
+                        'Changed',
+                        'Right! This project was changed',
+                        NotificationType.SUCCESS
+                    );
+                    
+                    this.projectName = '';
+                    this.$router.push('/projects');
+                })
             } else {
                 this.store.dispatch(ADD_PROJECT, this.projectName)
                     .then(() => {
