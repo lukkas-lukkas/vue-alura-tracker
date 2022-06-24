@@ -50,17 +50,17 @@ export default defineComponent({
                     name: this.projectName
                 } as IProject);
             } else {
-                this.store.commit(ADD_PROJECT, this.projectName);
-
-                this.notifier.notify(
-                    'Saved',
-                    'Right! New project saved with success',
-                    NotificationType.SUCCESS
-                );                
+                this.store.dispatch(ADD_PROJECT, this.projectName)
+                    .then(() => {
+                        this.notifier.notify(
+                            'Saved',
+                            'Right! New project saved with success',
+                            NotificationType.SUCCESS
+                        );
+                        this.projectName = '';
+                        this.$router.push('/projects');
+                    });
             }
-
-            this.projectName = '';
-            this.$router.push('/projects');
         }
     },
     setup() {

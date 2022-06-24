@@ -50,6 +50,11 @@ export const store = createStore<State>({
         [GET_PROJECTS]({ commit }) {
             clientHttp.get('projects')
                 .then(response => commit(SET_PROJECTS, response.data));
+        },
+        [ADD_PROJECT](state, nameProject: string) {
+            return clientHttp.post('/projects', {
+                name: nameProject 
+            });
         }
     }
 });
