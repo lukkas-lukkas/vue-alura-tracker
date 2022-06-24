@@ -4,6 +4,7 @@
       <SideBar @changedThemeEvent="changeTheme"/>
     </div>
     <div class="column is-three-quarter content">
+      <Notification />
       <router-view></router-view>
     </div>
   </main>
@@ -12,10 +13,11 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import SideBar from './components/SideBar.vue';
+import Notification from './components/Notification.vue';
 
 export default defineComponent({
     name: "App",
-    components: { SideBar },
+    components: { SideBar, Notification },
     data() {
       return {
         activedDarkMode: false
