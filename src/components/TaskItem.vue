@@ -2,7 +2,10 @@
     <BoxTaskItem>
         <div class="columns">
             <div class="column is-7">
-                {{ task.description || 'Task withou description' }}
+                {{ task.description || 'Task without description' }}
+            </div>
+            <div class="column">
+                {{ task.project.name || 'Task without project' }}
             </div>
             <div class="column">
                 <TimerDisplay :timeInSeconds="task.elapsedTime"/>
