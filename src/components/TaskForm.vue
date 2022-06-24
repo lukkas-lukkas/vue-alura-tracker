@@ -27,8 +27,8 @@
 import { defineComponent, computed } from "vue";
 import { useStore } from "@/store";
 import Timer from "./Timer.vue";
-import { NOTIFY } from "@/store/constants";
 import { NotificationType } from "@/interfaces/INotification";
+import { mixinNotification } from "@/mixins/notification";
 
 export default defineComponent({
     name: "TaskForm",
@@ -42,11 +42,11 @@ export default defineComponent({
     methods: {
         finishTask(elapsedTime: number): void {
             if (this.projectId === '' || this.taskDescription === '' ) {
-                this.store.commit(NOTIFY, {
-                    title: 'Missing values',
-                    text: 'There is missing value to finish task',
-                    type: NotificationType.DANGER
-                })
+                this.notify(
+                    'Missing values',
+                    'There is missing value to finish task',
+                    NotificationType.DANGER
+                );
                 return;
             }
 
@@ -66,7 +66,8 @@ export default defineComponent({
             store,
             projects: computed(() => store.state.projects)
         }
-    }
+    },
+    mixins: [mixinNotification]
 })
 </script>
 

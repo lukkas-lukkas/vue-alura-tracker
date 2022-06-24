@@ -20,8 +20,9 @@
 import { defineComponent } from "vue";
 import { useStore } from "@/store";
 import IProject from "@/interfaces/IProject";
-import { ADD_PROJECT, EDIT_PROJECT, NOTIFY } from "@/store/constants";
+import { ADD_PROJECT, EDIT_PROJECT } from "@/store/constants";
 import { NotificationType } from "@/interfaces/INotification";
+import { mixinNotification } from "@/mixins/notification";
 
 export default defineComponent({
     name: 'ProjectForm',
@@ -51,11 +52,11 @@ export default defineComponent({
             } else {
                 this.store.commit(ADD_PROJECT, this.projectName);
 
-                this.store.commit(NOTIFY, {
-                    title: 'Saved',
-                    text: 'Right! New project saved with success',
-                    type: NotificationType.SUCCESS
-                });
+                this.notify(
+                    'Saved',
+                    'Right! New project saved with success',
+                    NotificationType.SUCCESS
+                );                
             }
 
             this.projectName = '';
@@ -68,6 +69,7 @@ export default defineComponent({
         return { 
             store
          }
-    }
+    },
+    mixins: [mixinNotification]
 })
 </script>
