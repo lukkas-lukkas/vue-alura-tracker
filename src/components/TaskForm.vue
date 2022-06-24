@@ -5,7 +5,7 @@
                 <input type="text" class="input" placeholder="What task do you want start?" v-model="taskDescription">
             </div>
             <div class="column is-3">
-                <dic class="select">
+                <div class="select">
                     <select v-model="projectId">
                         <option value="">
                             Select the projetc
@@ -14,7 +14,7 @@
                             {{ project.name }}
                         </option>
                     </select>
-                </dic>
+                </div>
             </div>
             <div class="column">
                 <Timer @finishedTimer="finishTask"/>
