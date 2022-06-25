@@ -76,16 +76,10 @@ export const store = createStore<State>({
                 .then(response => commit(SET_TASKS, response.data));
         },
         [ADD_TASKS](state, task: ITask) {
-            return clientHttp.post('/tasks', { 
-                description: task.description,
-                elapsedTime: task.elapsedTime,
-                project: {
-                    id: task.project.id,
-                    name: task.project.name
-                }
-            }).then(() => {
-                state.commit(ADD_TASKS, task);
-            });
+            return clientHttp.post('/tasks', task)
+                .then(() => {
+                    state.commit(ADD_TASKS, task);
+                });
         },
     }
 });
