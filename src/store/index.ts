@@ -1,39 +1,28 @@
 import clientHttp from "@/http";
 import { INotification } from "@/interfaces/INotification";
-import IProject from "@/interfaces/IProject";
 import ITask from "@/interfaces/ITask";
 import { InjectionKey } from "vue";
 import { createStore, Store, useStore as vuexUseStore } from "vuex";
-import { ADD_PROJECT, EDIT_PROJECT, DELETE_PROJECT, SET_PROJECTS, GET_PROJECTS, NOTIFY, GET_TASKS, SET_TASKS, ADD_TASKS, EDIT_TASK } from "./constants";
+import { NOTIFY, GET_TASKS, SET_TASKS, ADD_TASKS, EDIT_TASK } from "./constants";
+import { ProjectsState, project } from "./modules/projects";
 
-interface State {
-    projects: IProject[],
+export interface State {
     tasks: ITask[],
-    notifications: INotification[]
+    notifications: INotification[],
+    project: ProjectsState
 }
 
 export const key: InjectionKey<Store<State>> = Symbol();
 
 export const store = createStore<State>({
     state: {
-        projects: [],
+        project: {
+            projects: []
+        },
         notifications: [],
         tasks: []
     },
     mutations: {
-        [ADD_PROJECT](state, project: IProject) {
-            state.projects.push(project);
-        },
-        [EDIT_PROJECT](state, project: IProject) {
-            const index = state.projects.findIndex(p => p.id == project.id);
-            state.projects[index] = project;
-        },
-        [DELETE_PROJECT](state, id: string) {
-            state.projects = state.projects.filter(p => p.id != id);
-        },
-        [SET_PROJECTS](state, projects: IProject[]) {
-            state.projects = projects;
-        },
         [SET_TASKS](state, tasks: ITask[]) {
             state.tasks = tasks;
         },
@@ -55,26 +44,6 @@ export const store = createStore<State>({
         }
     },
     actions: {
-        [GET_PROJECTS]({ commit }) {
-            clientHttp.get('projects')
-                .then(response => commit(SET_PROJECTS, response.data));
-        },
-        [ADD_PROJECT](state, nameProject: string) {
-            return clientHttp.post('/projects', {
-                name: nameProject 
-            }).then(response => {
-                state.commit(ADD_PROJECT, response.data);
-            });
-        },
-        [EDIT_PROJECT](state, project: IProject) {
-            return clientHttp.put(`/projects/${project.id}`, {
-                name: project.name
-            });
-        },
-        [DELETE_PROJECT]({ commit }, id: string) {
-            return clientHttp.delete(`/projects/${id}`)
-                .then(() => commit(DELETE_PROJECT, id));
-        },
         [GET_TASKS]({ commit }) {
             clientHttp.get('tasks')
                 .then(response => commit(SET_TASKS, response.data));
@@ -89,6 +58,9 @@ export const store = createStore<State>({
             return clientHttp.put(`/tasks/${task.id}`, task)
                 .then(() => state.commit(EDIT_TASK, task));
         },
+    },
+    modules: {
+        project
     }
 });
 
