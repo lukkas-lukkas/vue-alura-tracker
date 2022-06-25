@@ -1,13 +1,12 @@
-import clientHttp from "@/http";
 import { INotification } from "@/interfaces/INotification";
-import ITask from "@/interfaces/ITask";
 import { InjectionKey } from "vue";
 import { createStore, Store, useStore as vuexUseStore } from "vuex";
-import { NOTIFY, GET_TASKS, SET_TASKS, ADD_TASKS, EDIT_TASK } from "./constants";
+import { NOTIFY } from "./constants";
 import { ProjectsState, project } from "./modules/projects";
+import { task, TasksState } from "./modules/tasks";
 
 export interface State {
-    tasks: ITask[],
+    task: TasksState,
     notifications: INotification[],
     project: ProjectsState
 }
@@ -20,19 +19,11 @@ export const store = createStore<State>({
             projects: []
         },
         notifications: [],
-        tasks: []
+        task: {
+            tasks: []
+        }
     },
     mutations: {
-        [SET_TASKS](state, tasks: ITask[]) {
-            state.tasks = tasks;
-        },
-        [ADD_TASKS](state, task: ITask) {
-            state.tasks.push(task);
-        },
-        [EDIT_TASK](state, task: ITask) {
-            const index = state.tasks.findIndex(t => t.id == task.id);
-            state.tasks[index] = task;
-        },
         [NOTIFY](state, notification: INotification) {
             notification.id = new Date().getTime();
             
@@ -43,24 +34,9 @@ export const store = createStore<State>({
             }, 3000)
         }
     },
-    actions: {
-        [GET_TASKS]({ commit }) {
-            clientHttp.get('tasks')
-                .then(response => commit(SET_TASKS, response.data));
-        },
-        [ADD_TASKS](state, task: ITask) {
-            return clientHttp.post('/tasks', task)
-                .then(() => {
-                    state.commit(ADD_TASKS, task);
-                });
-        },
-        [EDIT_TASK](state, task: ITask) {
-            return clientHttp.put(`/tasks/${task.id}`, task)
-                .then(() => state.commit(EDIT_TASK, task));
-        },
-    },
     modules: {
-        project
+        project,
+        task
     }
 });
 
