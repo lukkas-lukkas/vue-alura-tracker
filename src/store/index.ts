@@ -21,12 +21,7 @@ export const store = createStore<State>({
         tasks: []
     },
     mutations: {
-        [ADD_PROJECT](state, nameProject: string) {
-            const project = {
-                id: new Date().toISOString(),
-                name: nameProject
-            } as IProject;
-
+        [ADD_PROJECT](state, project: IProject) {
             state.projects.push(project);
         },
         [EDIT_PROJECT](state, project: IProject) {
@@ -63,6 +58,8 @@ export const store = createStore<State>({
         [ADD_PROJECT](state, nameProject: string) {
             return clientHttp.post('/projects', {
                 name: nameProject 
+            }).then(response => {
+                state.commit(ADD_PROJECT, response.data);
             });
         },
         [EDIT_PROJECT](state, project: IProject) {

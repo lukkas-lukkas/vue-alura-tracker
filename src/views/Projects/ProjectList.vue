@@ -39,14 +39,12 @@
 <script lang="ts">
 import { computed, defineComponent } from "vue";
 import { useStore } from "@/store";
-import { DELETE_PROJECT, GET_PROJECTS } from "@/store/constants";
+import { DELETE_PROJECT } from "@/store/constants";
 
 export default defineComponent({
     name: 'ProjectList',
     setup() {
         const store = useStore();
-
-        store.dispatch(GET_PROJECTS);
 
         return {
             store,

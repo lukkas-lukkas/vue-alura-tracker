@@ -14,6 +14,8 @@
 import { defineComponent } from 'vue';
 import SideBar from './components/SideBar.vue';
 import Notification from './components/Notification.vue';
+import { useStore } from './store';
+import { GET_PROJECTS } from './store/constants';
 
 export default defineComponent({
     name: "App",
@@ -27,6 +29,10 @@ export default defineComponent({
       changeTheme(activedDarkMode: boolean) {
         this.activedDarkMode = activedDarkMode;
       }
+    },
+    setup() {
+      const store = useStore();
+      store.dispatch(GET_PROJECTS);
     }
 });
 </script>
