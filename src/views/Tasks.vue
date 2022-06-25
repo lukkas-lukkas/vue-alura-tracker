@@ -18,7 +18,7 @@
             </div>
             </section>
             <footer class="modal-card-foot">
-              <button class="button is-success">Save changes</button>
+              <button class="button is-success" @click="editTask">Save changes</button>
               <button class="button" @click="closeEditForm">Cancel</button>
             </footer>
           </div>
@@ -36,7 +36,7 @@ import TaskItem from '../components/TaskItem.vue';
 import ITask from '../interfaces/ITask';
 import BoxTaskItem from '../components/BoxTaskItem.vue';
 import { useStore } from '@/store';
-import { GET_TASKS, ADD_TASKS } from '@/store/constants';
+import { GET_TASKS, ADD_TASKS, EDIT_TASK } from '@/store/constants';
 import useNotifier from "@/hooks/notifier";
 import { NotificationType } from '@/interfaces/INotification';
 
@@ -71,6 +71,10 @@ export default defineComponent({
       },
       closeEditForm() {
         this.taskSelected = null;
+      },
+      editTask() {
+        this.store.dispatch(EDIT_TASK, this.taskSelected)
+          .then(() => this.closeEditForm());
       }
     },
     setup() {
