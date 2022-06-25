@@ -15,7 +15,9 @@ import TaskItem from '../components/TaskItem.vue';
 import ITask from '../interfaces/ITask';
 import BoxTaskItem from '../components/BoxTaskItem.vue';
 import { useStore } from '@/store';
-import { GET_TASKS } from '@/store/constants';
+import { GET_TASKS, ADD_TASKS } from '@/store/constants';
+import useNotifier from "@/hooks/notifier";
+import { NotificationType } from '@/interfaces/INotification';
 
 export default defineComponent({
     name: "App",
@@ -27,15 +29,27 @@ export default defineComponent({
     },
     methods: {
       addTask(task: ITask) {
-        this.tasks.push(task);
+        if (!task.project) {
+          this.notifier.notify(
+            'Missing project', 
+            'The project is required to create task', 
+            NotificationType.DANGER
+          );
+          return;
+        }
+
+        this.store.dispatch(ADD_TASKS, task);
       }
     },
     setup() {
+        const notifier = useNotifier();
         const store = useStore();
 
         store.dispatch(GET_TASKS);
 
         return {
+          store,
+          notifier,
           tasks: computed(() => store.state.tasks)
         }
     }

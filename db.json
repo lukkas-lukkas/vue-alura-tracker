@@ -7,11 +7,12 @@
   ],
   "tasks": [
     {
+      "id": 1,
       "description": "Task description",
       "elapsedTime": 20,
       "project": {
         "id": 1,
-        "name":"App with Vue.js"
+        "name": "App with Vue.js"
       }
     }
   ]
