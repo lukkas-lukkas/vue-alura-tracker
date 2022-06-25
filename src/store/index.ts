@@ -1,11 +1,14 @@
+import clientHttp from "@/http";
 import { INotification } from "@/interfaces/INotification";
 import IProject from "@/interfaces/IProject";
-import { getTransitionRawChildren, InjectionKey } from "vue";
+import ITask from "@/interfaces/ITask";
+import { InjectionKey } from "vue";
 import { createStore, Store, useStore as vuexUseStore } from "vuex";
-import { ADD_PROJECT, EDIT_PROJECT, DELETE_PROJECT, NOTIFY } from "./constants";
+import { ADD_PROJECT, EDIT_PROJECT, DELETE_PROJECT, SET_PROJECTS, GET_PROJECTS, NOTIFY, GET_TASKS, SET_TASKS, ADD_TASKS } from "./constants";
 
 interface State {
     projects: IProject[],
+    tasks: ITask[],
     notifications: INotification[]
 }
 
@@ -14,15 +17,11 @@ export const key: InjectionKey<Store<State>> = Symbol();
 export const store = createStore<State>({
     state: {
         projects: [],
-        notifications: []
+        notifications: [],
+        tasks: []
     },
     mutations: {
-        [ADD_PROJECT](state, nameProject: string) {
-            const project = {
-                id: new Date().toISOString(),
-                name: nameProject
-            } as IProject;
-
+        [ADD_PROJECT](state, project: IProject) {
             state.projects.push(project);
         },
         [EDIT_PROJECT](state, project: IProject) {
@@ -31,6 +30,15 @@ export const store = createStore<State>({
         },
         [DELETE_PROJECT](state, id: string) {
             state.projects = state.projects.filter(p => p.id != id);
+        },
+        [SET_PROJECTS](state, projects: IProject[]) {
+            state.projects = projects;
+        },
+        [SET_TASKS](state, tasks: ITask[]) {
+            state.tasks = tasks;
+        },
+        [ADD_TASKS](state, task: ITask) {
+            state.tasks.push(task);
         },
         [NOTIFY](state, notification: INotification) {
             notification.id = new Date().getTime();
@@ -41,6 +49,38 @@ export const store = createStore<State>({
                 state.notifications = state.notifications.filter(n => n.id != notification.id);
             }, 3000)
         }
+    },
+    actions: {
+        [GET_PROJECTS]({ commit }) {
+            clientHttp.get('projects')
+                .then(response => commit(SET_PROJECTS, response.data));
+        },
+        [ADD_PROJECT](state, nameProject: string) {
+            return clientHttp.post('/projects', {
+                name: nameProject 
+            }).then(response => {
+                state.commit(ADD_PROJECT, response.data);
+            });
+        },
+        [EDIT_PROJECT](state, project: IProject) {
+            return clientHttp.put(`/projects/${project.id}`, {
+                name: project.name
+            });
+        },
+        [DELETE_PROJECT]({ commit }, id: string) {
+            return clientHttp.delete(`/projects/${id}`)
+                .then(() => commit(DELETE_PROJECT, id));
+        },
+        [GET_TASKS]({ commit }) {
+            clientHttp.get('tasks')
+                .then(response => commit(SET_TASKS, response.data));
+        },
+        [ADD_TASKS](state, task: ITask) {
+            return clientHttp.post('/tasks', task)
+                .then(() => {
+                    state.commit(ADD_TASKS, task);
+                });
+        },
     }
 });
 

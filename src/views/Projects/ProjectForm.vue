@@ -45,22 +45,31 @@ export default defineComponent({
     methods: {
         save() {
             if (this.id) {
-                this.store.commit(EDIT_PROJECT, {
+                this.store.dispatch(EDIT_PROJECT, {
                     id: this.id,
                     name: this.projectName
-                } as IProject);
+                } as IProject).then(() => {
+                    this.notifier.notify(
+                        'Changed',
+                        'Right! This project was changed',
+                        NotificationType.SUCCESS
+                    );
+                    
+                    this.projectName = '';
+                    this.$router.push('/projects');
+                })
             } else {
-                this.store.commit(ADD_PROJECT, this.projectName);
-
-                this.notifier.notify(
-                    'Saved',
-                    'Right! New project saved with success',
-                    NotificationType.SUCCESS
-                );                
+                this.store.dispatch(ADD_PROJECT, this.projectName)
+                    .then(() => {
+                        this.notifier.notify(
+                            'Saved',
+                            'Right! New project saved with success',
+                            NotificationType.SUCCESS
+                        );
+                        this.projectName = '';
+                        this.$router.push('/projects');
+                    });
             }
-
-            this.projectName = '';
-            this.$router.push('/projects');
         }
     },
     setup() {

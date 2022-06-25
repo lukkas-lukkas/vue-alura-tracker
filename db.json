@@ -1,0 +1,19 @@
+{
+  "projects": [
+    {
+      "id": 1,
+      "name": "App with Vue.js"
+    }
+  ],
+  "tasks": [
+    {
+      "id": 1,
+      "description": "Task description",
+      "elapsedTime": 20,
+      "project": {
+        "id": 1,
+        "name": "App with Vue.js"
+      }
+    }
+  ]
+}
