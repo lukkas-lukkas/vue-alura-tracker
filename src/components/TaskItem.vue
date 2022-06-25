@@ -1,6 +1,6 @@
 <template>
     <BoxTaskItem>
-        <div class="columns">
+        <div class="columns clickable" @click="openEditForm">
             <div class="column is-4">
                 {{ task.description || 'Task without description' }}
             </div>
@@ -22,12 +22,24 @@ import BoxTaskItem from "./BoxTaskItem.vue";
 
 export default defineComponent({
     name: "TaskItem",
+    emits: ['taskClickedEvent'],
     components: { TimerDisplay, BoxTaskItem },
     props: {
         task: {
             type: Object as PropType<ITask>,
             required: true
         }
+    },
+    methods: {
+        openEditForm() {
+            this.$emit('taskClickedEvent', this.task);
+        }
     }
 })
 </script>
+
+<style scoped>
+.clickable {
+    cursor: pointer;
+}
+</style>
