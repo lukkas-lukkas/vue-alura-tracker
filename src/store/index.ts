@@ -4,7 +4,7 @@ import IProject from "@/interfaces/IProject";
 import ITask from "@/interfaces/ITask";
 import { InjectionKey } from "vue";
 import { createStore, Store, useStore as vuexUseStore } from "vuex";
-import { ADD_PROJECT, EDIT_PROJECT, DELETE_PROJECT, SET_PROJECTS, GET_PROJECTS, NOTIFY, GET_TASKS, SET_TASKS, ADD_TASKS } from "./constants";
+import { ADD_PROJECT, EDIT_PROJECT, DELETE_PROJECT, SET_PROJECTS, GET_PROJECTS, NOTIFY, GET_TASKS, SET_TASKS, ADD_TASKS, EDIT_TASK } from "./constants";
 
 interface State {
     projects: IProject[],
@@ -39,6 +39,10 @@ export const store = createStore<State>({
         },
         [ADD_TASKS](state, task: ITask) {
             state.tasks.push(task);
+        },
+        [EDIT_TASK](state, task: ITask) {
+            const index = state.tasks.findIndex(t => t.id == task.id);
+            state.tasks[index] = task;
         },
         [NOTIFY](state, notification: INotification) {
             notification.id = new Date().getTime();
@@ -80,6 +84,10 @@ export const store = createStore<State>({
                 .then(() => {
                     state.commit(ADD_TASKS, task);
                 });
+        },
+        [EDIT_TASK](state, task: ITask) {
+            return clientHttp.put(`/tasks/${task.id}`, task)
+                .then(() => state.commit(EDIT_TASK, task));
         },
     }
 });
