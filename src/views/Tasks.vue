@@ -50,6 +50,10 @@ export default defineComponent({
     components: { TaskForm, TaskItem, BoxTaskItem },
     computed: {
       listIsEmpty(): boolean {
+        if (!this.tasks) {
+          return true;
+        }
+
         return this.tasks.length === 0;
       }
     },
@@ -86,7 +90,7 @@ export default defineComponent({
         return {
           store,
           notifier,
-          tasks: computed(() => store.state.tasks)
+          tasks: computed(() => store.state.task.tasks)
         }
     }
 });

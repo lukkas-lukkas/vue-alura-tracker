@@ -27,7 +27,6 @@
 import { defineComponent, computed } from "vue";
 import { useStore } from "@/store";
 import Timer from "./Timer.vue";
-import { NotificationType } from "@/interfaces/INotification";
 import { mixinNotification } from "@/mixins/notification";
 
 export default defineComponent({
@@ -55,7 +54,7 @@ export default defineComponent({
 
         return {
             store,
-            projects: computed(() => store.state.projects)
+            projects: computed(() => store.state.project.projects)
         }
     },
     mixins: [mixinNotification]
