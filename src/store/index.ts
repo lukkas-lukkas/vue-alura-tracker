@@ -1,12 +1,14 @@
 import clientHttp from "@/http";
 import { INotification } from "@/interfaces/INotification";
 import IProject from "@/interfaces/IProject";
+import ITask from "@/interfaces/ITask";
 import { InjectionKey } from "vue";
 import { createStore, Store, useStore as vuexUseStore } from "vuex";
-import { ADD_PROJECT, EDIT_PROJECT, DELETE_PROJECT, SET_PROJECTS, GET_PROJECTS, NOTIFY } from "./constants";
+import { ADD_PROJECT, EDIT_PROJECT, DELETE_PROJECT, SET_PROJECTS, GET_PROJECTS, NOTIFY, GET_TASKS, SET_TASKS } from "./constants";
 
 interface State {
     projects: IProject[],
+    tasks: ITask[],
     notifications: INotification[]
 }
 
@@ -15,7 +17,8 @@ export const key: InjectionKey<Store<State>> = Symbol();
 export const store = createStore<State>({
     state: {
         projects: [],
-        notifications: []
+        notifications: [],
+        tasks: []
     },
     mutations: {
         [ADD_PROJECT](state, nameProject: string) {
@@ -35,6 +38,9 @@ export const store = createStore<State>({
         },
         [SET_PROJECTS](state, projects: IProject[]) {
             state.projects = projects;
+        },
+        [SET_TASKS](state, tasks: ITask[]) {
+            state.tasks = tasks;
         },
         [NOTIFY](state, notification: INotification) {
             notification.id = new Date().getTime();
@@ -64,7 +70,11 @@ export const store = createStore<State>({
         [DELETE_PROJECT]({ commit }, id: string) {
             return clientHttp.delete(`/projects/${id}`)
                 .then(() => commit(DELETE_PROJECT, id));
-        }
+        },
+        [GET_TASKS]({ commit }) {
+            clientHttp.get('tasks')
+                .then(response => commit(SET_TASKS, response.data));
+        },
     }
 });
 
