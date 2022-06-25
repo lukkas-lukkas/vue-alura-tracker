@@ -86,9 +86,8 @@ export const store = createStore<State>({
                 });
         },
         [EDIT_TASK](state, task: ITask) {
-            return clientHttp.put(`/tasks/${task.id}`, {
-                description: task.description
-            }).then(() => state.commit(EDIT_TASK, task));
+            return clientHttp.put(`/tasks/${task.id}`, task)
+                .then(() => state.commit(EDIT_TASK, task));
         },
     }
 });
