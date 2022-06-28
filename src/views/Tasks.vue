@@ -1,6 +1,14 @@
 <template>
     <TaskForm @addTaskEvent="addTask" />
     <div class="taskList">
+        <div class="field">
+          <p class="control has-icons-left">
+            <input type="text" class="input" placeholder="Type to filter" v-model="filter">
+            <span class="icon is-small is-left">
+              <i class="fas fa-search"></i>
+            </span>
+          </p>
+        </div>
         <TaskItem v-for="(task, index) in tasks" :key="index" :task="task" @taskClickedEvent="taskClicked"/>
         <div class="modal" :class="{'is-active': taskSelected}" v-if="taskSelected">
           <div class="modal-background"></div>
@@ -30,7 +38,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue';
+import { computed, defineComponent, ref } from 'vue';
 import TaskForm from '../components/TaskForm.vue';
 import TaskItem from '../components/TaskItem.vue';
 import ITask from '../interfaces/ITask';
@@ -85,12 +93,26 @@ export default defineComponent({
         const notifier = useNotifier();
         const store = useStore();
 
+        const filter = ref('');
+
         store.dispatch(GET_TASKS);
+
+        // Observer changes
+        /**
+         * watchEffect(() => {
+         *  console.log('watchEffect', filter.value);
+         * })
+         */
 
         return {
           store,
           notifier,
-          tasks: computed(() => store.state.task.tasks)
+          filter,
+          tasks: computed(() => 
+            store.state.task.tasks.filter(
+              t => !filter.value || t.description.includes(filter.value)
+            )
+          )
         }
     }
 });
