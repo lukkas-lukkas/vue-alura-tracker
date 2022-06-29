@@ -1,5 +1,6 @@
 # vue-alura-tracker
-Application developed with Vue.js following the framework course at Alura.
+Application developed with Vue.js 3 and Bulma, following the framework course at Alura.
+
 ![Application page](./src/assets/application.png)
 
 ## Project setup
