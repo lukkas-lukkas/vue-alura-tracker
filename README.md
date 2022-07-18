@@ -1,6 +1,11 @@
 # vue-alura-tracker
 Application developed with Vue.js 3 and Bulma, following the framework course at Alura.
 
+#### Tools:
+- Vue 3
+- Vue Router
+- Vuex
+
 ![Application page](./src/assets/application.png)
 
 ## Project setup
